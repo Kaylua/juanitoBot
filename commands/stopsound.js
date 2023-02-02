@@ -10,10 +10,10 @@ module.exports = {
 			const guildID = interaction.guild.id
 			await functions.stopsound(guildID)
 			await interaction.reply("✅ Son stoppé");
-			setTimeout(() => interaction.deleteReply(), 10000)
+			setTimeout(() => interaction.deleteReply(), 6000)
 		  } catch (err) {
 			await interaction.reply("❌ Erreur lors de l'arrêt du son");
-			setTimeout(() => interaction.deleteReply(), 10000)
+			setTimeout(() => interaction.deleteReply(), 6000)
 			console.log(err)
 		  }
 	},

@@ -24,7 +24,7 @@ module.exports = {
 			var name = interaction.options.getString('prenom')
 
 			if (!day || !month || !name || isNaN(day) || isNaN(month) || typeof name !== 'string') {
-				interaction.reply("❌ Veuillez entrer toutes les informations requises sous la forme suivante : jour mois nom (ce message s'autodréruira)");
+				interaction.reply("❌ Une erreur est survenue, vérifiez les informations rentrées.");
 				setTimeout(() => interaction.deleteReply(), 5000)
 				return;
 			}
@@ -37,7 +37,7 @@ module.exports = {
 			await newbirthday.save(); // on envois à la bdd
 			//--
 
-			await interaction.reply("✅ L'anniversaire de "+name+" a été ajouté ! (ce message s'autodréruira)");
+			await interaction.reply("✅ L'anniversaire de "+name+" a été ajouté !");
 			setTimeout(() => interaction.deleteReply(), 5000);
 		  } catch (err) {
 			console.log(err)

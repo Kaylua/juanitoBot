@@ -21,7 +21,7 @@ module.exports = {
 			  await functions.joinchannel(channelID, guildID)
 			  await functions.playsoundYTB(guildID, lienYTB)
 			  await interaction.reply("✅ Son joué");
-			  setTimeout(() => interaction.deleteReply(), 10000)
+			  setTimeout(() => interaction.deleteReply(), 5000)
 			} else {
 			  // Pas connecté à un channel
 			  throw new Error(`Veuillez vous connecter à un salon vocal.`);
@@ -31,7 +31,7 @@ module.exports = {
 		  } catch (err) {
 			console.log(err)
 			await interaction.reply("❌ Erreur, connectez vous à un salon vocal ou vérifiez le lien donné.");
-			setTimeout(() => interaction.deleteReply(), 10000)
+			setTimeout(() => interaction.deleteReply(), 7000)
 		  }
 	},
 };
