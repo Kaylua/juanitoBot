@@ -1,5 +1,6 @@
 // Require the necessary discord.js classes
 const fs = require('node:fs');
+const keepAlive = require('./server');
 const path = require('node:path');
 const birthday = require('./schemas/birthday')
 const subscriber = require('./schemas/subscriber')
@@ -90,7 +91,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 // CONNECTION DB
 const { connect, ConnectionStates, connection, connections } = require("mongoose");
-const dbToken = process.env.databaseToken;
+const dbToken = process.env['databaseToken'];
 
 const connectDB = async() => {
   try{
@@ -110,6 +111,7 @@ client.once(Events.ClientReady, c => {
 });
 
 // Log in to Discord with your client's token
-client.login(process.env.token);
+client.login(process.env['token']);
+//keepAlive();
 
 exports.client = client;
