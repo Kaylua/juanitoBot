@@ -23,7 +23,7 @@ for (const file of commandFiles) {
 const rest = new REST({ version: '10' }).setToken(token);
 
 // REMPLACER L'ID PAR CELUI DE LA COMMANDE A DELETE (pour delete une guild command)
-rest.delete(Routes.applicationGuildCommand(clientId, guildId, '1070535564538945629')) // id ici
+rest.delete(Routes.applicationGuildCommand(clientId, guildId, '1070738678718152714')) // id ici
 	.then(() => console.log('Successfully deleted guild command'))
 	.catch(console.error);
 

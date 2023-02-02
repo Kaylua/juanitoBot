@@ -1,0 +1,8 @@
+const { Schema, model } = require('mongoose');
+const birthdaySchema = new Schema({
+    name: String,
+    month: Number,
+    day: Number,
+})
+
+module.exports = model("birthday", birthdaySchema, "birthdays");
