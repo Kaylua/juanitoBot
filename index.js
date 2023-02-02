@@ -107,7 +107,7 @@ connectDB();
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
-    setInterval(checkBirthday, 5000); // Check every 24 hours (86400000)
+    setInterval(checkBirthday, 86400000); // Check every 24 hours (86400000)
 });
 
 // Log in to Discord with your client's token
