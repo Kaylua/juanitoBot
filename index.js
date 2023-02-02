@@ -1,6 +1,8 @@
 // Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
+const birthday = require('./schemas/birthday')
+const subscriber = require('./schemas/subscriber')
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 // Configure DotENV
 const dotenv = require('dotenv');
@@ -52,66 +54,65 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 // -- 
 
+// async function checkBirthday4() { //SUILA IL EST BIEN oe
+//     var user1 = "";
 
-async function checkBirthday3() {
-    const birthdaysFile = fs.readFileSync('birthdays.json');
-    const birthdays = JSON.parse(birthdaysFile);
-  
-    const today = new Date();
-    const todayMonth = today.getMonth();
-    const todayDate = today.getDate();
-  
-    const recipients = []; // Liste des personnes qui doivent recevoir le message
-  
-    for (const person of birthdays) {
-      if (person.month === todayMonth && person.day === todayDate) {
-        // Envoyer un message aux destinataires pour leur dire qu'il s'agit de l'anniversaire de la personne
-        recipients.forEach(recipient => {
-          // Implémentation pour envoyer un message à chaque destinataire
-        });
-      }
-    }
-  }
+//     const birthdaysFile = fs.readFileSync('birthdays.json');
+//     const birthdays = JSON.parse(birthdaysFile);
 
+//     const subscribersFile = fs.readFileSync('birthday_subscribers.json');
+//     const birthday_subscribers = JSON.parse(subscribersFile);
   
+//     const today = new Date();
+//     const todayMonth = today.getMonth()+1;
+//     const todayDate = today.getDate();
 
+//     // Check si anniversaire
+//     for (const person of birthdays) {
+//       if (person.month === todayMonth && person.day === todayDate) {
+//         // Envoyer un message aux destinataires pour leur dire qu'il s'agit de l'anniversaire de la personne
+//         for (const subscriber of birthday_subscribers) {
+//             user1 = await client.users.fetch(subscriber.id)
+//             try{
+//                 await user1.send("🎂🎉 Aujourd'hui c'est l'anniversaire de "+person.name+" ! 🎂🎉");
+//             }catch (error) {
+//                 console.error(`Error sending message to user ${subscriber.name}: ${error.message}`);
+//             }
+//         }
+//       }
+//     }
+//   }
 
   async function checkBirthday4() { //SUILA IL EST BIEN oe
     var user1 = "";
 
-    const birthdaysFile = fs.readFileSync('birthdays.json');
-    const birthdays = JSON.parse(birthdaysFile);
+    const birthdays = await birthday.find({})
 
-    const subscribersFile = fs.readFileSync('birthday_subscribers.json');
-    const birthday_subscribers = JSON.parse(subscribersFile);
+    const subscribers = await subscriber.find({})
   
     const today = new Date();
     const todayMonth = today.getMonth()+1;
     const todayDate = today.getDate();
-    console.log('month : '+todayMonth)
 
     // Check si anniversaire
     for (const person of birthdays) {
       if (person.month === todayMonth && person.day === todayDate) {
         // Envoyer un message aux destinataires pour leur dire qu'il s'agit de l'anniversaire de la personne
-        for (const subscriber of birthday_subscribers) {
-            user1 = await client.users.fetch(subscriber.id)
+        for (const subscriber of subscribers) {
+            try{
+                user1 = await client.users.fetch(subscriber.discordid)
+            }catch (error) {
+                console.error(`❌ Utilisateur pas trouvé: ${error.message}`);
+            }
             try{
                 await user1.send("🎂🎉 Aujourd'hui c'est l'anniversaire de "+person.name+" ! 🎂🎉");
             }catch (error) {
-                console.error(`Error sending message to user ${subscriber.name}: ${error.message}`);
+                console.error(`❌ Error sending message to user ${subscriber.name}: ${error.message}`);
             }
         }
       }
     }
   }
-
-
-
-
-
-
-
 
 async function check(){
     console.log("5 secondes sont passées")
@@ -136,7 +137,7 @@ connectDB();
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
-    //setInterval(checkBirthday4, 5000); // Check every 24 hours (86400000)
+    setInterval(checkBirthday4, 5000); // Check every 24 hours (86400000)
 });
 
 // Log in to Discord with your client's token

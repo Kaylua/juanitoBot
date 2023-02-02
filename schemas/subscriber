@@ -1,0 +1,7 @@
+const { Schema, model } = require('mongoose');
+const subscriberSchema = new Schema({
+    name: String,
+    discordid: String,
+})
+
+module.exports = model("subscriber", subscriberSchema, "subscribers");
