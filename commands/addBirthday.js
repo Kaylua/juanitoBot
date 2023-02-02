@@ -5,17 +5,23 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('addbirthday')
 		.setDescription('Ajoute un nouvel anniversaire. Format : jour mois prénom')
+		.addIntegerOption(option =>
+			option.setName('jour')
+				.setDescription('Entrer le jour')
+				.setRequired(true))
+		.addIntegerOption(option =>
+			option.setName('mois')
+				.setDescription('Entrer le mois')
+				.setRequired(true))
 		.addStringOption(option =>
-			option.setName('input')
-				.setDescription('The input to echo back')
+			option.setName('prenom')
+				.setDescription('Entrer le prénom')
 				.setRequired(true)),
 	async execute(interaction) {
 		try {
-			const textInfos = interaction.options.getString('input')
-			var tabInfos = textInfos.split(" ");
-			var day = tabInfos[0];
-			var month = tabInfos[1];
-			var name = tabInfos[2];
+			var day = interaction.options.getInteger('jour')
+			var month = interaction.options.getInteger('mois')
+			var name = interaction.options.getString('prenom')
 
 			if (!day || !month || !name || isNaN(day) || isNaN(month) || typeof name !== 'string') {
 				interaction.reply("❌ Veuillez entrer toutes les informations requises sous la forme suivante : jour mois nom (ce message s'autodréruira)");

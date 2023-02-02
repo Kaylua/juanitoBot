@@ -7,18 +7,19 @@ module.exports = {
 		.setName('playsound')
 		.setDescription('Replies with Pong!')
 		.addStringOption(option =>
-			option.setName('input')
+			option.setName('lien')
 				.setDescription('The input to echo back')
 				.setRequired(true)),
 	async execute(interaction) {
 		try {
+			const lienYTB = interaction.options.getString('lien')
 			const Member = interaction.member
 			const channelID = Member.voice.channel?.id
 			const guildID = interaction.guild.id
 		
 			if (Member.voice.channel) { 
 			  await functions.joinchannel(channelID, guildID)
-			  await functions.playsoundYTB(guildID, "https://www.youtube.com/watch?v=D7OWuslFYCw")
+			  await functions.playsoundYTB(guildID, lienYTB)
 			  await interaction.reply("✅ Son joué");
 			  setTimeout(() => interaction.deleteReply(), 10000)
 			} else {
