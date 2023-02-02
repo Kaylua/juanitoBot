@@ -54,36 +54,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 // -- 
 
-// async function checkBirthday4() { //SUILA IL EST BIEN oe
-//     var user1 = "";
-
-//     const birthdaysFile = fs.readFileSync('birthdays.json');
-//     const birthdays = JSON.parse(birthdaysFile);
-
-//     const subscribersFile = fs.readFileSync('birthday_subscribers.json');
-//     const birthday_subscribers = JSON.parse(subscribersFile);
-  
-//     const today = new Date();
-//     const todayMonth = today.getMonth()+1;
-//     const todayDate = today.getDate();
-
-//     // Check si anniversaire
-//     for (const person of birthdays) {
-//       if (person.month === todayMonth && person.day === todayDate) {
-//         // Envoyer un message aux destinataires pour leur dire qu'il s'agit de l'anniversaire de la personne
-//         for (const subscriber of birthday_subscribers) {
-//             user1 = await client.users.fetch(subscriber.id)
-//             try{
-//                 await user1.send("🎂🎉 Aujourd'hui c'est l'anniversaire de "+person.name+" ! 🎂🎉");
-//             }catch (error) {
-//                 console.error(`Error sending message to user ${subscriber.name}: ${error.message}`);
-//             }
-//         }
-//       }
-//     }
-//   }
-
-  async function checkBirthday4() { //SUILA IL EST BIEN oe
+  async function checkBirthday() {
     var user1 = "";
 
     const birthdays = await birthday.find({})
@@ -105,7 +76,9 @@ client.on(Events.InteractionCreate, async interaction => {
                 console.error(`❌ Utilisateur pas trouvé: ${error.message}`);
             }
             try{
-                await user1.send("🎂🎉 Aujourd'hui c'est l'anniversaire de "+person.name+" ! 🎂🎉");
+                if(subscriber.name != person.name){
+                    await user1.send("🎂🎉 Aujourd'hui c'est l'anniversaire de "+person.name+" ! 🎂🎉");
+                }
             }catch (error) {
                 console.error(`❌ Error sending message to user ${subscriber.name}: ${error.message}`);
             }
@@ -113,11 +86,6 @@ client.on(Events.InteractionCreate, async interaction => {
       }
     }
   }
-
-async function check(){
-    console.log("5 secondes sont passées")
-}
-
 
 // CONNECTION DB
 const { connect, ConnectionStates, connection, connections } = require("mongoose");
@@ -137,7 +105,7 @@ connectDB();
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
-    setInterval(checkBirthday4, 5000); // Check every 24 hours (86400000)
+    setInterval(checkBirthday, 5000); // Check every 24 hours (86400000)
 });
 
 // Log in to Discord with your client's token
