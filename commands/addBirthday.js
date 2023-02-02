@@ -4,7 +4,7 @@ const birthday = require('../schemas/birthday')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('addbirthday')
-		.setDescription('Ajoute un nouvel anniversaire. Format : jour mois prénom')
+		.setDescription('Ajoute un nouvel anniversaire.')
 		.addNumberOption(option =>
 			option.setName('jour')
 				.setDescription('Entrer le jour')

@@ -5,7 +5,7 @@ const client = require('../index')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('playsound')
-		.setDescription('Replies with Pong!')
+		.setDescription('Joue un son youtube dans ton channel')
 		.addStringOption(option =>
 			option.setName('lien')
 				.setDescription('The input to echo back')

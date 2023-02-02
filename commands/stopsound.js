@@ -4,7 +4,7 @@ const functions = require('../functions')
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('stopsound')
-		.setDescription('Replies with Pong!'),
+		.setDescription("Stop le son"),
 	async execute(interaction) {
 		try {
 			const guildID = interaction.guild.id

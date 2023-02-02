@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Replies with Pong!'),
+		.setDescription('Pong ?'),
 	async execute(interaction) {
 		await interaction.reply('Pong!');
         setTimeout(() => interaction.deleteReply(), 5000)
