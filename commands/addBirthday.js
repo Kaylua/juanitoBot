@@ -5,11 +5,11 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('addbirthday')
 		.setDescription('Ajoute un nouvel anniversaire. Format : jour mois prénom')
-		.addIntegerOption(option =>
+		.addNumberOption(option =>
 			option.setName('jour')
 				.setDescription('Entrer le jour')
 				.setRequired(true))
-		.addIntegerOption(option =>
+		.addNumberOption(option =>
 			option.setName('mois')
 				.setDescription('Entrer le mois')
 				.setRequired(true))
@@ -19,8 +19,8 @@ module.exports = {
 				.setRequired(true)),
 	async execute(interaction) {
 		try {
-			var day = interaction.options.getInteger('jour')
-			var month = interaction.options.getInteger('mois')
+			var day = interaction.options.getNumber('jour')
+			var month = interaction.options.getNumber('mois')
 			var name = interaction.options.getString('prenom')
 
 			if (!day || !month || !name || isNaN(day) || isNaN(month) || typeof name !== 'string') {

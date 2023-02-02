@@ -6,15 +6,17 @@ module.exports = {
 		.setName('addsubscriber')
 		.setDescription('Ajoute une personne à notifier des anniversaires. Format : nom id')
 		.addStringOption(option =>
-			option.setName('input')
-				.setDescription('The input to echo back')
+			option.setName('prenom')
+				.setDescription('Entrer le prénom')
+				.setRequired(true))
+		.addNumberOption(option =>
+			option.setName('id')
+				.setDescription("Entrer l'id")
 				.setRequired(true)),
 	async execute(interaction) {
 		try {
-			const textInfos = interaction.options.getString('input')
-			var tabInfos = textInfos.split(" ");
-			var name = tabInfos[0];
-			var id = tabInfos[1];
+			var name = interaction.options.getString('prenom')
+			var id = interaction.options.getNumber('id')
 
 			if (!id || !name || isNaN(id) || typeof name !== 'string') {
 				interaction.reply("❌ Veuillez entrer toutes les informations requises sous la forme suivante : nom id (ce message s'autodréruira)");
