@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const birthday = require('./schemas/birthday')
 const subscriber = require('./schemas/subscriber')
+const functions = require('./functions')
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 // Configure DotENV
 const dotenv = require('dotenv');
@@ -110,3 +111,5 @@ client.once(Events.ClientReady, c => {
 
 // Log in to Discord with your client's token
 client.login(process.env.token);
+
+exports.client = client;

@@ -1,0 +1,80 @@
+const { ChannelType } = require('discord.js')
+const { joinVoiceChannel, getVoiceConnection, createAudioPlayer, createAudioResource, AudioPlayerStatus, generateDependencyReport, NoSubscriberBehavior } = require('@discordjs/voice');
+const play = require('play-dl');
+const mongoose = require('mongoose');
+const { join } = require('path');
+const discord = require('./index')
+
+async function slt() {
+    console.log('slt')
+}
+
+// stopsound
+async function stopsound(guildID) {
+    try {    
+      const connection = getVoiceConnection(guildID)
+      connection.state.subscription.player.stop()
+    } catch (err) {
+      console.error(err)
+      throw err
+    }
+  }
+
+// joinchannel
+async function joinchannel(channelID, guildID) {
+    try {
+      const guild = await discord.client.guilds.fetch(guildID)
+      const voiceChannel = discord.client.channels.cache.get(channelID)
+      const connection = joinVoiceChannel({
+        channelId: channelID,
+        guildId: guildID,
+        adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+      });
+    } catch (err) {
+      console.error(err)
+      throw err
+    }
+  }
+
+// playsoundYTB
+async function playsoundYTB(guildID, linkYTB) {
+  try {    
+    let args = linkYTB
+    let yt_info = await play.search(args, {
+      limit: 1
+    })
+    
+    if (yt_info.length === 0) {
+      throw new Error('Une erreur est survenue lors du chargement de la vidéo.');
+    }
+
+    let stream = await play.stream(yt_info[0].url)
+    
+    let resource = createAudioResource(stream.stream, {
+      inputType: stream.type
+    })
+    
+    let player = createAudioPlayer({
+      behaviors: {
+        noSubscriber: NoSubscriberBehavior.Play
+      }
+    })
+    
+    player.play(resource)
+    
+    const connection = getVoiceConnection(guildID)
+    
+    const subscription = connection.subscribe(player)
+    
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
+}
+
+module.exports = {
+    joinchannel: joinchannel,
+    playsoundYTB: playsoundYTB,
+    stopsound: stopsound,
+    slt:slt,
+}
