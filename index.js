@@ -110,6 +110,9 @@ client.once(Events.ClientReady, c => {
     setInterval(checkBirthday, 86400000); // Check every 24 hours (86400000)
 });
 
+const { ReplitKill } = require('replit-kill');
+ReplitKill({ Client: client, Time: 5000 });
+
 // Log in to Discord with your client's token
 client.login(process.env['token']);
 //keepAlive();
