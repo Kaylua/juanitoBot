@@ -115,6 +115,6 @@ ReplitKill({ Client: client, Time: 5000 });
 
 // Log in to Discord with your client's token
 client.login(process.env['token']);
-//keepAlive();
+keepAlive();
 
 exports.client = client;
