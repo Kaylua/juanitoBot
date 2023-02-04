@@ -111,7 +111,7 @@ client.once(Events.ClientReady, c => {
 });
 
 const { ReplitKill } = require('replit-kill');
-ReplitKill({ Client: client, Time: 5000 });
+ReplitKill({ Client: client, Time: 300000 });
 
 // Log in to Discord with your client's token
 client.login(process.env['token']);
